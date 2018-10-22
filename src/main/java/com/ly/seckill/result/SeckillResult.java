@@ -1,24 +1,24 @@
 package com.ly.seckill.result;
 
-public class Result<T> {
+public class SeckillResult<T> {
     private int code;
     private String msg;
     private T data;
 
 
-    public static Result success() {
-        return new Result(0, "success", null);
+    public static SeckillResult success() {
+        return new SeckillResult(0, "success", null);
     }
 
-    public static <T> Result success(T data) {
-        return new Result(0, "success", data);
+    public static <T> SeckillResult success(T data) {
+        return new SeckillResult(0, "success", data);
     }
 
-    public static Result error(CodeMsg codeMsg) {
-        return new Result(codeMsg);
+    public static SeckillResult error(CodeMsg codeMsg) {
+        return new SeckillResult(codeMsg);
     }
 
-    private Result(CodeMsg codeMsg) {
+    private SeckillResult(CodeMsg codeMsg) {
         if (codeMsg == null) {
             return;
         }
@@ -26,7 +26,7 @@ public class Result<T> {
         this.msg = codeMsg.getMsg();
     }
 
-    public Result(int code, String msg, T data) {
+    public SeckillResult(int code, String msg, T data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
@@ -46,7 +46,7 @@ public class Result<T> {
 
     @Override
     public String toString() {
-        return "Result{" +
+        return "SeckillResult{" +
                 "code=" + code +
                 ", msg='" + msg + '\'' +
                 ", data=" + data +
