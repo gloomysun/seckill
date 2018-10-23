@@ -1,7 +1,6 @@
 package com.ly.seckill.domain;
 
-
-public class User{
+public class User {
     private int id;
     private String name;
 
@@ -19,13 +18,5 @@ public class User{
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
     }
 }

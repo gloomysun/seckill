@@ -16,18 +16,18 @@ import java.util.Map;
 @SpringBootTest
 public class SeckillApplicationTests {
 
-    @Autowired
-    private RedisTemplate redisTemplate;
+//    @Autowired
+//    private RedisTemplate redisTemplate;
     @Autowired
     private UserMapper userMapper;
 
-    @Test
-    public void testReids() {
-        Map map = new HashMap<>();
-        map.put("a", "dd");
-        map.put("c", "ee");
-        redisTemplate.opsForValue().set("sss", map);
-    }
+//    @Test
+//    public void testReids() {
+//        Map map = new HashMap<>();
+//        map.put("a", "dd");
+//        map.put("c", "ee");
+//        redisTemplate.opsForValue().set("sss", map);
+//    }
 
     @Test
     public void testCache(){

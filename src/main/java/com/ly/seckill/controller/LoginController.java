@@ -29,20 +29,7 @@ public class LoginController {
 
     @RequestMapping("/do_login")
     @ResponseBody
-    public LoginVo doLogin(@Valid LoginVo loginVo) {
-//        if(bindingResult.hasErrors()){
-//            for(ObjectError error:bindingResult.getAllErrors()){
-//                System.out.println(error.getDefaultMessage());
-//            }
-//        }
-        return loginVo;
-
-//        if(codeMsg.getCode()==0){
-//            return SeckillResult.success(loginVo);
-//        }else {
-//            return SeckillResult.error(codeMsg);
-//        }
-
-
+    public SeckillResult doLogin(@Valid LoginVo loginVo) {
+        return SeckillResult.success(loginVo);
     }
 }

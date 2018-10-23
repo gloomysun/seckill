@@ -20,7 +20,7 @@ import org.springframework.data.redis.serializer.*;
 import java.time.Duration;
 
 @Configuration
-@EnableCaching
+//@EnableCaching
 public class RedisConfig {
     @Bean
     public ObjectMapper objectMapper() {
@@ -63,35 +63,35 @@ public class RedisConfig {
     }
 
 
-    @Bean
-    public KeyGenerator keyGenerator() {
-        return (o, method, objects) -> {
-            StringBuilder sb = new StringBuilder();
-            sb.append(o.getClass().getName());
-            sb.append("." + method.getName() + "(");
-            for (Object obj : objects) {
-                sb.append(obj.toString());
-            }
-            sb.append(")");
-            return sb.toString();
-        };
-    }
+//    @Bean
+//    public KeyGenerator keyGenerator() {
+//        return (o, method, objects) -> {
+//            StringBuilder sb = new StringBuilder();
+//            sb.append(o.getClass().getName());
+//            sb.append("." + method.getName() + "(");
+//            for (Object obj : objects) {
+//                sb.append(obj.toString());
+//            }
+//            sb.append(")");
+//            return sb.toString();
+//        };
+//    }
 
     /**
      * springboot2.x中，RedisCacheManager已经没有了单参数的构造方法
      * 1.x中通过参数redisTemplate配置的方式不可行
      */
-    @Bean
-    public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory, RedisSerializer jackson2JsonRedisSerializer) {
-        RedisCacheConfiguration cacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofHours(1))  // 设置缓存有效期一小时
-                .disableCachingNullValues()
-                .computePrefixWith(cacheName -> "yourAppName".concat(":").concat(cacheName).concat(":"))
-                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer));
-
-        return RedisCacheManager.builder(redisConnectionFactory)
-                .cacheDefaults(cacheConfiguration)
-                .build();
-    }
+//    @Bean
+//    public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory, RedisSerializer jackson2JsonRedisSerializer) {
+//        RedisCacheConfiguration cacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
+//                .entryTtl(Duration.ofHours(1))  // 设置缓存有效期一小时
+//                .disableCachingNullValues()
+//                .computePrefixWith(cacheName -> "yourAppName".concat(":").concat(cacheName).concat(":"))
+//                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+//                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer));
+//
+//        return RedisCacheManager.builder(redisConnectionFactory)
+//                .cacheDefaults(cacheConfiguration)
+//                .build();
+//    }
 }

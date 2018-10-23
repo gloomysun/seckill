@@ -3,12 +3,11 @@ package com.ly.seckill.vo;
 import com.ly.seckill.validator.IsMobile;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 public class LoginVo {
     @NotNull
-    @Email
+    @IsMobile
     private String mobile;
     @NotNull
     @Length(min = 32)

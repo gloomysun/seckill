@@ -7,16 +7,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController
 public class HelloController {
     @Autowired
     private UserService userService;
 
     @RequestMapping("/getUser")
-    @ResponseBody
-    public User getUserById(int id) {
-        return userService.getUserById(id);
+    public Map getUserById() {
+
+//        User user = new User();
+//        user.setId(1);
+//        user.setName("dddd");
+        Map map  = new HashMap();
+        map.put("aa","bb");
+        return map;
     }
 
     @RequestMapping("/hello")
