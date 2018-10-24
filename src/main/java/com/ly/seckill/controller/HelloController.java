@@ -17,16 +17,6 @@ public class HelloController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/getUser")
-    public Map getUserById() {
-
-//        User user = new User();
-//        user.setId(1);
-//        user.setName("dddd");
-        Map map  = new HashMap();
-        map.put("aa","bb");
-        return map;
-    }
 
     @RequestMapping("/hello")
     public String hello(Model model) {

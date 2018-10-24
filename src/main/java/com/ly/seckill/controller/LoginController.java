@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @Controller
@@ -29,7 +30,8 @@ public class LoginController {
 
     @RequestMapping("/do_login")
     @ResponseBody
-    public SeckillResult doLogin(@Valid LoginVo loginVo) {
+    public SeckillResult doLogin(HttpServletResponse response,@Valid LoginVo loginVo) {
+        seckillUserService.login(response,loginVo);
         return SeckillResult.success(loginVo);
     }
 }
