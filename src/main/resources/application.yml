@@ -49,4 +49,3 @@ logging:
   level:
     com.ly.seckill.mapper:  debug
 
-
