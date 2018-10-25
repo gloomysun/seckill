@@ -9,6 +9,7 @@ import com.ly.seckill.result.CodeMsg;
 import com.ly.seckill.utils.MD5Util;
 import com.ly.seckill.utils.UUIDUtil;
 import com.ly.seckill.vo.LoginVo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,5 +50,16 @@ public class SeckillUserService {
         cookie.setMaxAge(Constant.TOKEN_EXPIRE);
         cookie.setPath("/");
         response.addCookie(cookie);
+    }
+
+    public Object getByToken(HttpServletResponse response, String token) {
+        if (StringUtils.isEmpty(token)) {
+            return null;
+        }
+        SeckillUser seckillUser = (SeckillUser) redisService.get(Constant.TOKEN_PREFIX, token);
+        if (seckillUser != null) {
+            addCookie(response, token, seckillUser);
+        }
+        return seckillUser;
     }
 }

@@ -17,8 +17,12 @@ public class ReqInterceptor extends HandlerInterceptorAdapter {
     private RedisTemplate redisTemplate;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("Interceptor preHandler method is running !");
-        return super.preHandle(request, response, handler);
+//        System.out.println("Interceptor preHandler method is running !");
+//        return super.preHandle(request, response, handler);
+        // 执行到这里拦截，跳转到无权访问的提示页面
+        response.sendRedirect("/static/fail.html");
+        // 如果返回false表示拦截不继续执行handler，如果返回true表示放行
+        return false;
     }
 
     @Override
