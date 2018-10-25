@@ -93,4 +93,18 @@ public class SnowFlake {
         return System.currentTimeMillis();
     }
 
+    public static void main(String[] args) {
+        SnowFlake snowFlake = new SnowFlake(1, 0);
+        for (long i = 0; i < 1000; i++) {
+//            new Thread(new Worker(new SnowflakeIdWorker(1, 0))).start();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println(snowFlake.nextId());
+                }
+            }).start();
+        }
+    }
+
+
 }
