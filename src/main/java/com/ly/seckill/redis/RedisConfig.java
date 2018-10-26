@@ -23,7 +23,6 @@ import java.time.Duration;
 @EnableCaching
 public class RedisConfig {
 
-
     /**
      * Jackson2JsonRedisSerializer和GenericJackson2JsonRedisSerializer的区别
      * https://blog.csdn.net/bai_bug/article/details/81222519
@@ -78,17 +77,17 @@ public class RedisConfig {
      * springboot2.x中，RedisCacheManager已经没有了单参数的构造方法
      * 1.x中通过参数redisTemplate配置的方式不可行
      */
-    @Bean
-    public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory, RedisSerializer jackson2JsonRedisSerializer) {
-        RedisCacheConfiguration cacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofHours(1))  // 设置缓存有效期一小时
-                .disableCachingNullValues()
-                .computePrefixWith(cacheName -> "yourAppName".concat(":").concat(cacheName).concat(":"))
-                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer));
-
-        return RedisCacheManager.builder(redisConnectionFactory)
-                .cacheDefaults(cacheConfiguration)
-                .build();
-    }
+//    @Bean
+//    public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory, RedisSerializer jackson2JsonRedisSerializer) {
+//        RedisCacheConfiguration cacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
+//                .entryTtl(Duration.ofHours(1))  // 设置缓存有效期一小时
+//                .disableCachingNullValues()
+//                .computePrefixWith(cacheName -> "yourAppName".concat(":").concat(cacheName).concat(":"))
+//                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+//                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer));
+//
+//        return RedisCacheManager.builder(redisConnectionFactory)
+//                .cacheDefaults(cacheConfiguration)
+//                .build();
+//    }
 }

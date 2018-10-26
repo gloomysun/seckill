@@ -5,6 +5,6 @@ import org.apache.ibatis.annotations.Select;
 
 public interface SeckillUserMapper {
 
-    @Select("select * from seckillUser where id = #{id}")
+    @Select("select * from seckill_user where id = #{id}")
     SeckillUser getById(String id);
 }
