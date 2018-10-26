@@ -22,14 +22,7 @@ import java.time.Duration;
 @Configuration
 @EnableCaching
 public class RedisConfig {
-    @Bean
-    public ObjectMapper objectMapper() {
-        ObjectMapper om = new ObjectMapper();
-        om.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-        om.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-        return om;
-    }
+
 
     /**
      * Jackson2JsonRedisSerializer和GenericJackson2JsonRedisSerializer的区别
@@ -41,7 +34,11 @@ public class RedisConfig {
 //        return serializer;
 //    }
     @Bean
-    public Jackson2JsonRedisSerializer jackson2JsonRedisSerializer(ObjectMapper om) {
+    public Jackson2JsonRedisSerializer jackson2JsonRedisSerializer() {
+        ObjectMapper om = new ObjectMapper();
+        om.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        om.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
         jackson2JsonRedisSerializer.setObjectMapper(om);
         return jackson2JsonRedisSerializer;
