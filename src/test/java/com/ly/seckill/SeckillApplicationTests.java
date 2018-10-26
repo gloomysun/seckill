@@ -1,6 +1,6 @@
 package com.ly.seckill;
 
-import com.ly.seckill.domain.User;
+import com.ly.seckill.service.SeckillService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,21 +11,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class SeckillApplicationTests {
 
-//    @Autowired
-//    private RedisTemplate redisTemplate;
-
-//    @Test
-//    public void testReids() {
-//        Map map = new HashMap<>();
-//        map.put("a", "dd");
-//        map.put("c", "ee");
-//        redisTemplate.opsForValue().set("sss", map);
-//    }
-
+    @Autowired
+    private SeckillService seckillService;
 
     @Test
     public void contextLoads() {
-
+        seckillService.seckill2(1L, 1000L);
     }
 
 }

@@ -9,7 +9,8 @@ import java.util.Date;
  * 商品详情页封装bean
  */
 @Data
-public class GoodsVo extends Goods {
+public class SeckillGoodsVo extends Goods {
+    private Long seckillId;
     private Double seckillPrice;
     private Integer stockCount;
     private Date startTime;

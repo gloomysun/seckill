@@ -17,19 +17,20 @@ CREATE TABLE goods (
   goods_price  DECIMAL(10,2)   DEFAULT '0.00' COMMENT '价格',
   goods_stock  INT(11)      DEFAULT '0' COMMENT '库存'
 );
-CREATE TABLE order_info (
-  id BIGINT(20) PRIMARY KEY COMMENT '订单id' ,
-  user_id BIGINT(20) NOT NULL  COMMENT '用户id',
-  goods_id BIGINT(20) NOT NULL COMMENT '商品id',
-  delivery_addr_id VARCHAR(32) NOT NULL DEFAULT '' COMMENT '地址',
-  goods_ame VARCHAR(32) NOT NULL DEFAULT '' COMMENT '商品名(冗余字段)',
-  goods_ount int(11) NOT NULL DEFAULT 0 COMMENT '商品数量',
-  goods_price DECIMAL(10,2) NOT NULL DEFAULT 0.00  COMMENT '商品价格',
-  order_channel TINYINT(4) NOT NULL COMMENT '订单平台（1-pc，2-ios，3-安卓）',
-  status TINYINT(4) NOT NULL COMMENT '状态（0新建未支付，1已支付，2已发货，3已收货）',
-  create_date DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  pay_date DATETIME COMMENT '支付时间'
-);
+CREATE TABLE `order_info` (
+  `id` bigint(20) NOT NULL COMMENT '订单id',
+  `user_id` bigint(20) NOT NULL COMMENT '用户id',
+  `goods_id` bigint(20) NOT NULL COMMENT '商品id',
+  `delivery_addr_id` BIGINT(20) NOT NULL DEFAULT '' COMMENT '地址',
+  `goods_name` varchar(32) NOT NULL DEFAULT '' COMMENT '商品名(冗余字段)',
+  `goods_count` int(11) NOT NULL DEFAULT '0' COMMENT '商品数量',
+  `goods_price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '商品价格',
+  `order_channel` tinyint(4) NOT NULL COMMENT '订单平台（1-pc，2-ios，3-安卓）',
+  `status` tinyint(4) NOT NULL COMMENT '状态（0新建未支付，1已支付，2已发货，3已收货）',
+  `create_date` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `pay_date` datetime DEFAULT NULL COMMENT '支付时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE seckill_goods(
   id BIGINT(20) PRIMARY KEY COMMENT '秒杀商品id',
@@ -41,8 +42,8 @@ CREATE TABLE seckill_goods(
 );
 
 CREATE TABLE seckill_order(
-  id BIGINT(20) PRIMARY KEY COMMENT '秒杀商品订单',
-  user_id BIGINT(20)  COMMENT '商品id',
+  user_id BIGINT(20)  COMMENT '用户id',
+  seckill_id BIGINT(20) COMMENT '秒杀商品id',
   order_id BIGINT(20) COMMENT '订单id',
-  goods_id BIGINT(20) COMMENT '商品id'
+  PRIMARY KEY (`seckill_id`, `user_id`)/*联合主键*/
 )

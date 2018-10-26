@@ -17,9 +17,8 @@ public class CodeMsg {
 
 
     //秒杀模块
-    public static CodeMsg SECKILL_OVER = new CodeMsg(500210, "商品已经秒杀完毕");
+    public static CodeMsg SECKILL_OVER = new CodeMsg(500210, "您手慢了，商品抢光了");
     public static CodeMsg SECKILL_REPEAT = new CodeMsg(500210, "重复秒杀");
-
 
     public CodeMsg(int code, String msg) {
         this.code = code;

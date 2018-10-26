@@ -8,7 +8,7 @@ import com.ly.seckill.result.SeckillResult;
 import com.ly.seckill.service.GoodsService;
 import com.ly.seckill.service.OrderService;
 import com.ly.seckill.service.SeckillService;
-import com.ly.seckill.vo.GoodsVo;
+import com.ly.seckill.vo.SeckillGoodsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,22 +29,23 @@ public class SeckillController {
     private SeckillService seckillService;
 
     @RequestMapping(value = "/do_seckill", method = RequestMethod.POST)
-    public SeckillResult doSeckill(SeckillUser user, @RequestParam("goodsId") long goodsId) {
+    public SeckillResult doSeckill(SeckillUser user, @RequestParam("seckillId") long seckillId) {
         if (user == null) {
             return SeckillResult.error(CodeMsg.SESSION_ERROR);
         }
-        //判断库存
-        GoodsVo goodsVo = goodsService.getGoodsVoByGoodsId(goodsId);
-        if (goodsVo.getStockCount() <= 0) {
-            return SeckillResult.error(CodeMsg.SECKILL_OVER);
-        }
-        //判断用户是否已经秒杀
-        SeckillOrder seckillOrder = orderService.getMiaoshaOrderByUserIdGoodsId(user.getId(), goodsId);
-        if (seckillOrder != null) {
-            return SeckillResult.error(CodeMsg.SECKILL_REPEAT);
-        }
-        //减库存，下订单，写入秒杀订单
-        OrderInfo orderInfo = seckillService.seckill(user, goodsVo);
-        return null;
+        return seckillService.seckill(user.getId(), seckillId);
+//        //判断库存
+//        SeckillGoodsVo seckillGoodsVo = goodsService.getGoodsVoByGoodsId(goodsId);
+//        if (seckillGoodsVo.getStockCount() <= 0) {
+//            return SeckillResult.error(CodeMsg.SECKILL_OVER);
+//        }
+//        //判断用户是否已经秒杀
+//        SeckillOrder seckillOrder = orderService.getMiaoshaOrderByUserIdGoodsId(user.getId(), goodsId);
+//        if (seckillOrder != null) {
+//            return SeckillResult.error(CodeMsg.SECKILL_REPEAT);
+//        }
+//        //减库存，下订单，写入秒杀订单
+//        OrderInfo orderInfo = seckillService.seckill(user, seckillGoodsVo);
+//        return null;
     }
 }

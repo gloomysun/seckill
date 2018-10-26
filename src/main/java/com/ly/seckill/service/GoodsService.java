@@ -1,7 +1,7 @@
 package com.ly.seckill.service;
 
 import com.ly.seckill.mapper.GoodsMapper;
-import com.ly.seckill.vo.GoodsVo;
+import com.ly.seckill.vo.SeckillGoodsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,19 +12,20 @@ public class GoodsService {
     @Autowired
     private GoodsMapper goodsMapper;
 
-    public List<GoodsVo> listGoodsVo() {
+    public List<SeckillGoodsVo> listGoodsVo() {
         return goodsMapper.listGoodsVo();
     }
 
-    public GoodsVo getGoodsVoByGoodsId(long goodsId) {
-        return goodsMapper.getGoodsVoByGoodsId(goodsId);
+    public SeckillGoodsVo getGoodsVoBySeckillId(long seckillId) {
+        return goodsMapper.getGoodsVoBySeckillId(seckillId);
     }
 
-    public int getStockCountByGoodsId(long goodsId) {
-        return goodsMapper.getStockCountByGoodsId(goodsId);
+    public int reduceStock(long seckillId) {
+        return goodsMapper.reduceStock(seckillId);
     }
 
-    public void reduceStock(GoodsVo goodsVo) {
-        goodsMapper.reduceStock(goodsVo);
+
+    public void initSeckillGoods(long seckillId) {
+        goodsMapper.initSeckillGoods(seckillId);
     }
 }

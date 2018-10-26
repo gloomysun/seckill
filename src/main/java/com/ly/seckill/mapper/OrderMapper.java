@@ -1,16 +1,21 @@
 package com.ly.seckill.mapper;
 
-import com.ly.seckill.domain.SeckillOrder;
-import com.ly.seckill.domain.SeckillUser;
-import com.ly.seckill.vo.GoodsVo;
+import com.ly.seckill.domain.OrderInfo;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 public interface OrderMapper {
-    @Select("select id,user_id,goods_id,order_id from seckill_order where user_id=#{userId} and goods_id=#{goodsId}")
-    SeckillOrder getMiaoshaOrderByUserIdGoodsId(@Param("userId") long userId, @Param("goodsId") long goodsId);
+    /**
+     * 插入订单
+     * @param orderInfo
+     */
+    @Insert("insert into order_info (id,user_id,goods_id,delivery_addr_id,goods_name,goods_count,goods_price,order_channel,status,create_date)" +
+            "values(#{id},#{userId},#{goodsId},#{deliveryAddrId},#{goodsName},#{goodsCount},#{goodsPrice},#{orderChannel},#{status},#{createDate} )")
+    void insertOrder(OrderInfo orderInfo);
 
-    @Insert("insert")
-    void insertOrder(SeckillUser user, GoodsVo goodsVo);
+    /**
+     * 删除订单记录
+     */
+    @Delete("delete from order_info")
+    void deleteOrder();
 }

@@ -2,12 +2,12 @@ package com.ly.seckill.service;
 
 import com.ly.seckill.domain.OrderInfo;
 import com.ly.seckill.domain.SeckillOrder;
-import com.ly.seckill.domain.SeckillUser;
 import com.ly.seckill.mapper.OrderMapper;
 import com.ly.seckill.utils.SnowFlake;
-import com.ly.seckill.vo.GoodsVo;
+import com.ly.seckill.vo.SeckillGoodsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -18,24 +18,34 @@ public class OrderService {
     @Autowired
     private SnowFlake snowFlake;
 
-    public SeckillOrder getMiaoshaOrderByUserIdGoodsId(long userId, long goodsId) {
-        return orderMapper.getMiaoshaOrderByUserIdGoodsId(userId, goodsId);
-    }
 
-    public OrderInfo createOrder(SeckillUser user, GoodsVo goodsVo) {
+
+
+    /**
+     * 思考：先创建订单还是先创建秒杀订单
+     * 秒杀订单可去重
+     */
+    @Transactional
+    public OrderInfo createOrder(long userId, SeckillGoodsVo seckillGoodsVo) {
         //创建订单
         OrderInfo orderInfo = new OrderInfo();
         orderInfo.setId(snowFlake.nextId());
         orderInfo.setGoodsCount(1);
         orderInfo.setCreateDate(new Date());
         orderInfo.setDeliveryAddrId(0L);
-        orderInfo.setGoodsId(goodsVo.getId());
-        orderInfo.setGoodsName(goodsVo.getGoodsName());
-        orderInfo.setGoodsPrice(goodsVo.getSeckillPrice());
+        orderInfo.setGoodsId(seckillGoodsVo.getId());
+        orderInfo.setGoodsName(seckillGoodsVo.getGoodsName());
+        orderInfo.setGoodsPrice(seckillGoodsVo.getSeckillPrice());
         orderInfo.setStatus(0);
         orderInfo.setOrderChannel(1);
-        orderInfo.setUserId(user.getId());
-        orderMapper.insertOrder(user, goodsVo);
-        return null;
+        orderInfo.setUserId(userId);
+        orderMapper.insertOrder(orderInfo);
+        return orderInfo;
     }
+
+    public void deleteOrder() {
+        orderMapper.deleteOrder();
+    }
+
+
 }

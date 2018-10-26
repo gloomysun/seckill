@@ -1,7 +1,7 @@
 package com.ly.seckill.service;
 
 import com.ly.seckill.SeckillApplication;
-import com.ly.seckill.vo.GoodsVo;
+import com.ly.seckill.vo.SeckillGoodsVo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +18,11 @@ public class GoodsServiceTest {
 
     @Test
     public void testReduceStock() {
-        GoodsVo goodsVo = new GoodsVo();
-        goodsVo.setId(10001111L);
         for(int i =0;i<100;i++){
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    goodsService.reduceStock(goodsVo);
+                    goodsService.reduceStock(10001111L);
                 }
             }).start();
         }

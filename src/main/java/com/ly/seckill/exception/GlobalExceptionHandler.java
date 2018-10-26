@@ -26,6 +26,9 @@ public class GlobalExceptionHandler {
         if (e instanceof GlobalException) {
             return SeckillResult.error(((GlobalException) e).getCodeMsg());
         }
+        if (e instanceof SeckillException) {
+            return SeckillResult.error(((SeckillException) e).getCodeMsg());
+        }
         return SeckillResult.error(CodeMsg.SERVER_ERROR);
     }
 }
