@@ -20,7 +20,7 @@ public interface SeckillOrderMapper {
      * 插入秒杀订单
      * @param seckillOrder
      */
-    @Insert("insert ignore into seckill_order (user_id,seckill_id,order_id) values(#{userId},#{seckillId},#{orderId})")
+    @Insert("insert  into seckill_order (user_id,seckill_id,order_id) values(#{userId},#{seckillId},#{orderId})")
     long insertSeckillOrder(SeckillOrder seckillOrder);
 
 

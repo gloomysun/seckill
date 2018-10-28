@@ -16,7 +16,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public SeckillResult exceptionHandler(HttpServletRequest request, Exception e) {
+    public SeckillResult exceptionHandler(HttpServletRequest request, Exception e) throws Exception {
         if (e instanceof BindException) {
             List<ObjectError> allErrors = ((BindException) e).getAllErrors();
             allErrors.get(0);

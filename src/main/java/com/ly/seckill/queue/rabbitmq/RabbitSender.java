@@ -10,6 +10,12 @@ public class RabbitSender {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
+    public void sendSeckillMsg(String seckillMsg) {
+        rabbitTemplate.convertAndSend(RabbitConfig.SECKILL_QUEUE, seckillMsg);
+    }
+
+
+    //=======================================以下为测试代码==========================================//
     public void send(Object msg) {
         rabbitTemplate.convertAndSend(RabbitConfig.SIMPLE_QUEUE, msg);
     }
@@ -18,9 +24,9 @@ public class RabbitSender {
         rabbitTemplate.convertAndSend(RabbitConfig.WORK_QUEUE, msg);
     }
 
-    public void sendRouting(Object msg){
-        rabbitTemplate.convertAndSend(RabbitConfig.DIRECT_EXCHANGE,"routing.key1",msg+"1");
-        rabbitTemplate.convertAndSend(RabbitConfig.DIRECT_EXCHANGE,"routing.key2",msg+"2");
+    public void sendRouting(Object msg) {
+        rabbitTemplate.convertAndSend(RabbitConfig.DIRECT_EXCHANGE, "routing.key1", msg + "1");
+        rabbitTemplate.convertAndSend(RabbitConfig.DIRECT_EXCHANGE, "routing.key2", msg + "2");
     }
 
     public void sendTopic(Object msg) {

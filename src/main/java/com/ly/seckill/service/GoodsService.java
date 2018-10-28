@@ -1,5 +1,6 @@
 package com.ly.seckill.service;
 
+import com.ly.seckill.domain.SeckillGoods;
 import com.ly.seckill.mapper.GoodsMapper;
 import com.ly.seckill.vo.SeckillGoodsVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,13 @@ public class GoodsService {
 
     public void initSeckillGoods(long seckillId) {
         goodsMapper.initSeckillGoods(seckillId);
+    }
+
+    public SeckillGoods getSeckillGoodsBySeckillId(long seckillId) {
+        return goodsMapper.getSeckillGoodsBySeckillId(seckillId);
+    }
+
+    public int reduceStockByVersion(SeckillGoods seckillGoods) {
+        return goodsMapper.reduceStockByVersion(seckillGoods);
     }
 }

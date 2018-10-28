@@ -1,6 +1,7 @@
 package com.ly.seckill.service;
 
 import com.ly.seckill.common.Constant;
+import com.ly.seckill.domain.SeckillGoods;
 import com.ly.seckill.domain.SeckillUser;
 import com.ly.seckill.exception.GlobalException;
 import com.ly.seckill.mapper.SeckillUserMapper;
@@ -17,14 +18,15 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 @Service
-public class SeckillUserService {
+public class SeckillUserService  {
 
     @Autowired
     private SeckillUserMapper seckillUserMapper;
     @Autowired
     private RedisService redisService;
 
-    public CodeMsg login(HttpServletResponse response, LoginVo loginVo) {
+
+    public String login(HttpServletResponse response, LoginVo loginVo) {
         if (loginVo == null) {
             throw new GlobalException(CodeMsg.SERVER_ERROR);
         }
@@ -41,7 +43,7 @@ public class SeckillUserService {
         String token = UUIDUtil.uuid();
         //添加cookie
         addCookie(response, token, user);
-        return CodeMsg.SUCCESS;
+        return token;
     }
 
     private void addCookie(HttpServletResponse response, String token, SeckillUser user) {
@@ -62,4 +64,6 @@ public class SeckillUserService {
         }
         return seckillUser;
     }
+
+
 }

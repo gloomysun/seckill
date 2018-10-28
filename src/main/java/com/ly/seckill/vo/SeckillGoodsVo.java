@@ -15,4 +15,5 @@ public class SeckillGoodsVo extends Goods {
     private Integer stockCount;
     private Date startTime;
     private Date endTime;
+    private int version;
 }

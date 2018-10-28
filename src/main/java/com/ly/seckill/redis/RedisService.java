@@ -36,4 +36,8 @@ public class RedisService {
     public Object get(String key) {
         return redisTemplate.opsForValue().get(key);
     }
+
+    public long decr(String prefix, String key) {
+        return redisTemplate.opsForValue().increment(prefix + ":" + key, -1);
+    }
 }

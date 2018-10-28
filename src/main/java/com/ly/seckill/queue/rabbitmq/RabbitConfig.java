@@ -7,6 +7,16 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitConfig {
+
+    public static String SECKILL_QUEUE = "seckill-queue";
+    @Bean
+    public Queue seckillQueue(){
+        return new Queue(SECKILL_QUEUE,true);
+    }
+
+    //=======================================以上为秒杀使用的代码==========================================//
+
+    //=======================================以下为测试代码==========================================//
     /**
      * rabbitmq共有5种模式 简单模式、work 模式，发布订阅模式、路由模式、主题模式
      * https://www.cnblogs.com/ysocean/p/9251884.html

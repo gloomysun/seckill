@@ -1,5 +1,6 @@
 package com.ly.seckill.mapper;
 
+import com.ly.seckill.domain.SeckillGoods;
 import com.ly.seckill.vo.SeckillGoodsVo;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -17,6 +18,15 @@ public interface GoodsMapper {
     @Update("update seckill_goods set stock_count = stock_count-1 where id = #{seckillId} and stock_count>0")
     int reduceStock(long seckillId);
 
-    @Update("update seckill_goods set stock_count=10 where id = #{seckillId}")
+    @Update("update seckill_goods set stock_count = stock_count-1,version=version+1 " +
+            "where id = #{id} and version=#{version}")
+    int reduceStockByVersion(SeckillGoods seckillGoods);
+
+    @Update("update seckill_goods set stock_count=100 where id = #{seckillId}")
     void initSeckillGoods(long seckillId);
+
+    @Select("select sg.id ,sg.seckill_price,sg.stock_count,sg.version from   seckill_goods sg where id = #{seckillId}")
+    SeckillGoods getSeckillGoodsBySeckillId(long seckillId);
+
+
 }

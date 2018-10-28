@@ -41,8 +41,8 @@ spring:
         min-idle: 0
 #rabbitmq配置
   rabbitmq:
-    addresses:  192.168.74.129
-#    addresses:  192.168.0.200
+#    addresses:  192.168.74.129
+    addresses:  192.168.0.200
     port: 5672
     username: guest
     password: guest

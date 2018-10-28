@@ -31,7 +31,7 @@ public class LoginController {
     @RequestMapping("/do_login")
     @ResponseBody
     public SeckillResult doLogin(HttpServletResponse response,@Valid LoginVo loginVo) {
-        seckillUserService.login(response,loginVo);
-        return SeckillResult.success(loginVo);
+        String token = seckillUserService.login(response,loginVo);
+        return SeckillResult.success(token);
     }
 }

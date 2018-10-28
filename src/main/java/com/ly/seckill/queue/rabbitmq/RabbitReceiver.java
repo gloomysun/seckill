@@ -1,14 +1,33 @@
 package com.ly.seckill.queue.rabbitmq;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.ly.seckill.service.SeckillService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
 @Component
 public class RabbitReceiver {
     private static Logger logger = LoggerFactory.getLogger(RabbitConfig.class);
+
+
+    @Autowired
+    private SeckillService seckillService;
+    @RabbitListener(queues = "seckill-queue")
+    public void receiveSeckill(String seckillMsg){
+        SeckillMsg msg = JSON.toJavaObject(JSON.parseObject(seckillMsg),SeckillMsg.class);
+        long userId = msg.getUserId();
+        long seckillId = msg.getSeckillId();
+
+        seckillService.seckill(userId,seckillId);
+    }
+
+
+    //=======================================以下为测试代码==========================================//
 
     //===================简单模式接收====================//
     @RabbitListener(queues = "simple-queue")
